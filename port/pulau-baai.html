@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" x-data="portPage()" x-cloak class="antialiased">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Port Pulau Baai</title>
+
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#004A9F', accent: '#00A74D' }
+        }
+      }
+    };
+  </script>
+
+  <!-- Alpine.js -->
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+  <style>
+    [x-cloak] { display: none !important; }
+    #map { background: white; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow fixed w-full z-50">
+    <div class="container mx-auto px-6 py-4">
+      <a href="../port-list.html" class="text-xl font-bold text-primary hover:underline">
+        ← Kembali ke Daftar Pelabuhan
+      </a>
+    </div>
+  </nav>
+  <div class="h-16"></div>
+
+  <!-- Hero -->
+  <section class="relative">
+    <img src="../images/plaju-sei-gerong.jpg"
+         alt="Plaju – Sei Gerong"
+         class="object-cover w-full h-64"/>
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="absolute inset-0 flex flex-col justify-center items-center text-white text-center px-4">
+      <h1 class="text-3xl md:text-5xl font-extrabold" data-aos="fade-down">Port Jambi</h1>
+    </div>
+  </section>
+
+  <!-- Tabs -->
+  <div class="container mx-auto px-6 py-8" data-aos="fade-up">
+    <ul class="flex space-x-8 border-b border-gray-200 mb-8 text-xl font-semibold">
+      <template x-for="t in ['info','facilities','jetty','osr']" :key="t">
+        <li>
+          <button @click="tab = t"
+                  class="pb-3 cursor-pointer transition-colors duration-200 focus:outline-none"
+                  :class="tab===t
+                    ? 'text-primary border-b-4 border-primary'
+                    : 'text-gray-500 hover:text-primary'">
+            <span x-text="{
+              info: 'Info Umum',
+              facilities: 'Fasilitas',
+              jetty: 'Jetty',
+              osr: 'Oil Spill Response'
+            }[t]"></span>
+          </button>
+        </li>
+      </template>
+    </ul>
+
+    <!-- Info Umum -->
+    <div x-show="tab==='info'" x-transition>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        <!-- Lokasi Kantor -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg text-center hover:shadow-xl transition" data-aos="fade-up">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-primary mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <h4 class="text-2xl font-semibold mb-2">Lokasi Kantor</h4>
+          <p class="text-gray-600 text-base leading-relaxed">
+            Jalan Ir. Rustandi Sugianto No. 11 ,<br>
+            Pulau Baai,<br>
+            Bengkulu
+          </p>
+        </div>
+        <!-- Contact Person -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg text-center hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="100">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-primary mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M5.121 17.804A13.937 13.937 0 0112 15c2.89 0 5.574.835 7.879 2.263M15 10a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <h4 class="text-2xl font-semibold mb-2">Contact Person</h4>
+          <p class="text-gray-600 text-base">Firmansyah</p>
+          <a href="tel:+628114600699" class="mt-2 block text-accent text-lg font-medium hover:underline">
+            0811-4600-699<br><span class="text-sm text-gray-500">(Port Manager)</span>
+          </a>
+        </div>
+        <!-- Titik Navigasi -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg text-center hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-primary mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 19V6h13M9 6l3 3m0 0L9 12m3-3h12"/>
+          </svg>
+          <h4 class="text-2xl font-semibold mb-2">Titik Navigasi</h4>
+          <p class="text-gray-600 text-base">– Belum tersedia –</p>
+        </div>
+        <!-- Standar Operasional -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg text-center hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-primary mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m-3-3v6m-7 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          <h4 class="text-2xl font-semibold mb-2">Standar Operasional</h4>
+          <p class="text-gray-600 text-base leading-relaxed">
+            • ISPS Code - Not Compy <br>• SoCPF - <br>• PFSO -
+          </p>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div id="map" class="w-full h-96 rounded-lg shadow-lg mb-6"></div>
+
+      <!-- BMKG Data -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        <div class="bg-gradient-to-br from-blue-50 to-white border-l-4 border-primary p-6 rounded-xl shadow hover:shadow-2xl transition" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex items-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-primary mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 15a4 4 0 014-4 4 4 0 013.874 3H14a3 3 0 100-6 3.001 3.001 0 00-2.995 2.824A4.002 4.002 0 103 15z"/>
+            </svg>
+            <h3 class="text-lg font-semibold text-gray-700">Cuaca</h3>
+          </div>
+          <p id="weather-desc" class="text-2xl font-bold text-gray-800">–</p>
+        </div>
+        <div class="bg-gradient-to-br from-blue-50 to-white border-l-4 border-primary p-6 rounded-xl shadow hover:shadow-2xl transition" data-aos="fade-up" data-aos-delay="200">
+          <div class="flex items-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-primary mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 12h11m0 0a4 4 0 110-8 4 4 0 010 8zm0 4h7m0 0a2 2 0 110-4 2 2 0 010 4z"/>
+            </svg>
+            <h3 class="text-lg font-semibold text-gray-700">Angin</h3>
+          </div>
+          <p id="wind-speed" class="text-2xl font-bold text-gray-800">–</p>
+        </div>
+        <div class="bg-gradient-to-br from-blue-50 to-white border-l-4 border-primary p-6 rounded-xl shadow hover:shadow-2xl transition" data-aos="fade-up" data-aos-delay="300">
+          <div class="flex items-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-primary mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 15c4-4 8 4 12 0s8 4 12 0"/>
+            </svg>
+            <h3 class="text-lg font-semibold text-gray-700">Arus Sungai</h3>
+          </div>
+          <p id="current-speed" class="text-2xl font-bold text-gray-800">–</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Facilities -->
+    <div x-show="tab==='facilities'" x-transition>
+      <div x-show="modalOpen" x-transition.opacity class="fixed inset-0 flex items-center justify-center z-50 modal-backdrop">
+        <div @click.away="modalOpen=false" class="bg-white rounded-lg overflow-hidden shadow-xl max-w-lg w-full">
+          <img :src="modalImage" :alt="modalTitle" class="w-full h-80 object-cover"/>
+          <div class="p-4">
+            <h3 class="text-2xl font-semibold mb-2" x-text="modalTitle"></h3>
+            <p class="text-gray-600" x-text="modalDesc"></p>
+            <button @click="modalOpen=false" class="mt-4 bg-primary text-white px-4 py-2 rounded hover:bg-blue-800">Close</button>
+          </div>
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <template x-for="f in facilities" :key="f.id">
+          <div class="bg-white rounded-xl overflow-hidden shadow hover:shadow-2xl transition cursor-pointer" @click="openModal(f)" data-aos="fade-up">
+            <div class="h-48 overflow-hidden">
+              <img :src="f.img" :alt="f.title" class="w-full h-full object-cover transform hover:scale-110 transition"/>
+            </div>
+            <div class="p-4">
+              <h4 class="text-xl font-semibold mb-1" x-html="f.title"></h4>
+              <p class="text-gray-600 text-sm" x-text="f.desc"></p>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- Jetty -->
+    <div x-show="tab==='jetty'" x-transition>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+        <template x-for="(j,i) in jetties" :key="j.name">
+          <div
+            class="bg-white rounded-lg shadow p-6 cursor-pointer hover:shadow-xl transition"
+            :class="j.open ? 'ring-4 ring-primary' : ''"
+            @click="toggleJetty(j,i)"
+            data-aos="fade-up"
+          >
+            <div class="flex justify-between items-center mb-2">
+              <h5 class="text-lg font-semibold" x-text="j.name"></h5>
+              <svg :class="j.open ? 'rotate-180' : ''"
+                   class="w-5 h-5 transform transition"
+                   fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 9l-7 7-7-7"/>
+              </svg>
+            </div>
+            <div x-show="j.open" x-transition class="mt-4 space-y-2 text-gray-700 text-sm">
+              <p><strong>Kapasitas (DWT):</strong> <span x-text="j.capacity"></span></p>
+              <p><strong>Kedalaman Alur (-mLWS):</strong> <span x-text="j.depth"></span></p>
+              <p><strong>LoA (m):</strong> <span x-text="j.loa"></span></p>
+              <p><strong>Flow Rate (kl/jam):</strong> <span x-text="j.flowRate"></span></p>
+              <p><strong>Loading Rate (kl/jam):</strong> <span x-text="j.loadingRate"></span></p>
+              <p><strong>Discharge Rate (kl/jam):</strong> <span x-text="j.dischargeRate"></span></p>
+              <p><strong>Diameter pipa (mm):</strong> <span x-text="j.diameter"></span></p>
+              <p><strong>Koordinat:</strong> <span x-text="j.coords.join(', ')"></span></p>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- Oil Spill Response -->
+    <div x-show="tab==='osr'" x-transition>
+      <div class="overflow-x-auto" data-aos="fade-up">
+        <table class="min-w-full bg-white rounded-lg shadow">
+          <thead class="bg-primary text-white">
+            <tr>
+              <th class="px-4 py-2">No.</th>
+              <th class="px-4 py-2">Jenis Peralatan/Material</th>
+              <th class="px-4 py-2">Spesifikasi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="(r,i) in osrData" :key="i">
+              <tr :class="i % 2 === 0 ? 'bg-white' : 'bg-gray-100'">
+                <td class="border px-4 py-2 text-center" x-text="r.no"></td>
+                <td class="border px-4 py-2" x-text="r.jenis"></td>
+                <td class="border px-4 py-2" x-text="r.spesifikasi"></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    AOS.init({ once:true, duration:600 });
+
+    function portPage(){
+      return {
+        tab: 'info',
+        modalOpen: false,
+        modalImage: '',
+        modalTitle: '',
+        modalDesc: '',
+        osrData: [
+          { no:'1',  jenis:'Oil Boom',                                      spesifikasi:'-'},
+          { no:'2',  jenis:'Oil Skimmer',                                   spesifikasi:'-'},
+          { no:'3',  jenis:'Oil Spill Dispersant',                          spesifikasi:'-'},
+          { no:'4',  jenis:'Oil Dispersant Pump',                           spesifikasi:'-'},
+          { no:'5',  jenis:'Oil Sorbent',                                   spesifikasi:'-'},
+          { no:'6',  jenis:'Oil Containment Bag',                           spesifikasi:'-'},
+          { no:'7',  jenis:'Rubber Inflatable Boat',                        spesifikasi:'-'}
+        ],  
+        facilities: [
+          { id:1, title:'7x Sarana Bantu Navigasi', desc:'Unit pelampung navigasi di sepanjang alur.', img:'../images/facility-buoy.jpg' },
+          { id:2, title:'Crane Manual', desc:'Crane Manual', img:'../images/facility-tugboat.jpg' },          
+          { id:3, title:'2x Tug Boat', desc:'Hourse Power : 1300 & 1240 HP by Pelindo', img:'../images/facility-tugboat.jpg' },
+          { id:4, title:'Alat Pemadam Api Kebakaran', desc:'availabe', img:'../images/facility-tugboat.jpg' },
+          { id:5, title:'Layout Dermaga', desc:'availabe', img:'../images/facility-tugboat.jpg' },
+          { id:6, title:'Komunikasi Radio', desc:'Radio UHF - ; Radio VHF : CH 9, CH 16, CH 19', img:'../images/facility-tugboat.jpg' },
+          { id:7, title:'Transportasi', desc:'Bandara, Terminal Bus, Stasiun, Pelabuhan Umum', img:'../images/facility-tugboat.jpg' },
+          { id:8, title:'Rumah Sakit/Klinik', desc:'Rumah Sakit Polri, Jl. Raden Mattaher No. 3 Rajawali', img:'../images/facility-tugboat.jpg' },
+          { id:9, title:'Perlengkapan Barang & Makanan di Kapal', desc:'Pasar Kasang, Jambi Timur', img:'../images/facility-tugboat.jpg' }
+        ],
+        jetties: [
+          { name:'Jetty 1', open:false, capacity:'900 - 6500', depth:'6.8', loa:'27 - 121', flowRate:'350',coords:[-3.90403722, 102.29199342] }
+        ],
+        toggleJetty(j,i){
+          this.jetties.forEach((x,idx)=> x.open = idx===i && !x.open);
+          if(this.jetties[i].open && window.map){
+            window.map.flyTo(j.coords,17,{duration:1.2});
+            window.jettyMarkers[i].openPopup();
+          }
+        },
+        openModal(f){
+          this.modalImage = f.img;
+          this.modalTitle = f.title.replace(/<br>/g,' ');
+          this.modalDesc  = f.desc;
+          this.modalOpen  = true;
+        }
+      }
+    }
+
+    // initialize map & markers
+    document.addEventListener('alpine:init',()=>{
+      window.map = L.map('map').setView([-3.9040372200070537, 102.29199342074772],15);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18}).addTo(window.map);
+      setTimeout(()=>{
+        window.jettyMarkers = [];
+        portPage().jetties.forEach((j,i)=>{
+          const m = L.marker(j.coords).addTo(window.map)
+                   .bindPopup(`<strong>${j.name}</strong><br>Koordinat: ${j.coords.join(', ')}`);
+          window.jettyMarkers.push(m);
+        });
+        window.map.invalidateSize();
+      },200);
+    });
+
+    // fetch BMKG
+    async function loadBMKG(){
+      try{
+        const res = await fetch('https://peta-maritim.bmkg.go.id/public_api/pelabuhan/0540_PPI%20Nipah%20Panjang.json');
+        if(!res.ok) throw new Error(res.status);
+        const { data } = await res.json(), d = data[0];
+        document.getElementById('weather-desc').textContent   = d.weather;
+        document.getElementById('wind-speed').textContent    = `${d.wind_speed_min}–${d.wind_speed_max} kt (${d.wind_from}→${d.wind_to})`;
+        document.getElementById('current-speed').textContent = `${d.current_speed_min}–${d.current_speed_max} m/s (${d.current_from}→${d.current_to})`;
+      } catch(e){
+        console.error('BMKG error', e);
+      }
+    }
+    loadBMKG();
+  </script>
+</body>
+</html>

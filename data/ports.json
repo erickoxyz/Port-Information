@@ -1,0 +1,442 @@
+[
+  {
+    "port_name": "Plaju - Sei Gerong",
+    "slug": "plaju---sei-gerong",
+    "address": "Alamat kantor Plaju - Sei Gerong",
+    "contact_person": {
+      "name": "Admin Pelabuhan",
+      "phone": "+62-800-0000"
+    },
+    "navigation_coords": "2°59'3.90\"S/104°50'46.85\"E",
+    "sop": "#",
+    "cargo_types": [
+      "-",
+      "Crude",
+      "WO",
+      "WO, AVTUR",
+      "WO, AVTUR, CRUDE",
+      "WO, BO, CRUDE, INTERMEDIA",
+      "WO, Intermedia",
+      "WO, LPG",
+      "WO, LPG, INTERMEDIA"
+    ],
+    "wind_speed": "5-15 km/h",
+    "tide": "0.5-2.0 m",
+    "radio_channels": [
+      {
+        "channel": "VHF 16",
+        "frequency": "156.8 MHz"
+      }
+    ],
+    "weather": "Cerah, 30°C",
+    "operator": "PT Pelindo II",
+    "facilities": [
+      "Fuel Station",
+      "Warehouse"
+    ],
+    "jetties": [
+      {
+        "jetty_name": "SG-1",
+        "DWT_capacity": "900-16000",
+        "LoA_capacity": "50-160",
+        "flow_rate": "400.0/700",
+        "depth": 8.0,
+        "coordinates": {
+          "latitude": -2.984417,
+          "longitude": 104.846347
+        }
+      },
+      {
+        "jetty_name": "SG-2",
+        "DWT_capacity": "900-18000",
+        "LoA_capacity": "50-160",
+        "flow_rate": "500.0/700",
+        "depth": 8.0,
+        "coordinates": {
+          "latitude": -2.985183,
+          "longitude": 104.844689
+        }
+      },
+      {
+        "jetty_name": "SG-3",
+        "DWT_capacity": "900-18000",
+        "LoA_capacity": "50-160",
+        "flow_rate": "350.0/700",
+        "depth": 8.0,
+        "coordinates": {
+          "latitude": -2.985842,
+          "longitude": 104.843053
+        }
+      },
+      {
+        "jetty_name": "SG 4",
+        "DWT_capacity": "900-18000",
+        "LoA_capacity": "50-160",
+        "flow_rate": "400.0/700",
+        "depth": 5.6,
+        "coordinates": {
+          "latitude": -2.987261,
+          "longitude": 104.840639
+        }
+      },
+      {
+        "jetty_name": "SG 5",
+        "DWT_capacity": "900-18000",
+        "LoA_capacity": "50-160",
+        "flow_rate": "350.0/700",
+        "depth": 8.1,
+        "coordinates": {
+          "latitude": -2.988178,
+          "longitude": 104.838894
+        }
+      },
+      {
+        "jetty_name": "SG 6",
+        "DWT_capacity": "1000-17000",
+        "LoA_capacity": "50-74",
+        "flow_rate": "160.0/700",
+        "depth": 6.2,
+        "coordinates": {
+          "latitude": -2.989619,
+          "longitude": 104.837017
+        }
+      },
+      {
+        "jetty_name": "PLJ 7",
+        "DWT_capacity": "500-13000",
+        "LoA_capacity": "70-140",
+        "flow_rate": "250.0/700",
+        "depth": 5.5,
+        "coordinates": {
+          "latitude": -2.990672,
+          "longitude": 104.833069
+        }
+      },
+      {
+        "jetty_name": "PLJ 8",
+        "DWT_capacity": "900-18000",
+        "LoA_capacity": "71-160",
+        "flow_rate": "500.0/700",
+        "depth": 6.1,
+        "coordinates": {
+          "latitude": -2.990975,
+          "longitude": 104.831575
+        }
+      },
+      {
+        "jetty_name": "PLJ 9",
+        "DWT_capacity": "900-18000",
+        "LoA_capacity": "50-160",
+        "flow_rate": "500.0/700",
+        "depth": 7.9,
+        "coordinates": {
+          "latitude": -2.991067,
+          "longitude": 104.830008
+        }
+      },
+      {
+        "jetty_name": "PLJ 10",
+        "DWT_capacity": "900-18000",
+        "LoA_capacity": "50-160",
+        "flow_rate": "500.0/700",
+        "depth": 6.3,
+        "coordinates": {
+          "latitude": -2.991139,
+          "longitude": 104.828253
+        }
+      },
+      {
+        "jetty_name": "PLJ 11",
+        "DWT_capacity": "1000-17000",
+        "LoA_capacity": "50-66",
+        "flow_rate": "2900.0/-",
+        "depth": 7.2,
+        "coordinates": {
+          "latitude": -2.99115,
+          "longitude": 104.826689
+        }
+      },
+      {
+        "jetty_name": "PLJ 12",
+        "DWT_capacity": "1000-18000",
+        "LoA_capacity": "50-160",
+        "flow_rate": "258.4/-",
+        "depth": 10.0,
+        "coordinates": {
+          "latitude": -2.990964,
+          "longitude": 104.824875
+        }
+      }
+    ]
+  },
+  {
+    "port_name": "STS Muntok",
+    "slug": "sts-muntok",
+    "address": "Alamat kantor STS Muntok",
+    "contact_person": {
+      "name": "Admin Pelabuhan",
+      "phone": "+62-800-0000"
+    },
+    "navigation_coords": null,
+    "sop": "#",
+    "cargo_types": [
+      "WO"
+    ],
+    "wind_speed": "5-15 km/h",
+    "tide": "0.5-2.0 m",
+    "radio_channels": [
+      {
+        "channel": "VHF 16",
+        "frequency": "156.8 MHz"
+      }
+    ],
+    "weather": "Cerah, 30°C",
+    "operator": "PT Pelindo II",
+    "facilities": [
+      "Fuel Station",
+      "Warehouse"
+    ],
+    "jetties": [
+      {
+        "jetty_name": "MTK 1",
+        "DWT_capacity": "500-13000",
+        "LoA_capacity": "70-140",
+        "flow_rate": "250.0/700",
+        "depth": 5.5,
+        "coordinates": {
+          "latitude": -2.08488599078512,
+          "longitude": 105.132746595361
+        }
+      }
+    ]
+  },
+  {
+    "port_name": "Jambi",
+    "slug": "jambi",
+    "address": "Alamat kantor Jambi",
+    "contact_person": {
+      "name": "Admin Pelabuhan",
+      "phone": "+62-800-0000"
+    },
+    "navigation_coords": null,
+    "sop": "#",
+    "cargo_types": [
+      "WO, AVTUR",
+      "WO, AVTUR, CRUDE"
+    ],
+    "wind_speed": "5-15 km/h",
+    "tide": "0.5-2.0 m",
+    "radio_channels": [
+      {
+        "channel": "VHF 16",
+        "frequency": "156.8 MHz"
+      }
+    ],
+    "weather": "Cerah, 30°C",
+    "operator": "PT Pelindo II",
+    "facilities": [
+      "Fuel Station",
+      "Warehouse"
+    ],
+    "jetties": [
+      {
+        "jetty_name": "JB 1",
+        "DWT_capacity": "900-18000",
+        "LoA_capacity": "71-160",
+        "flow_rate": "500.0/700",
+        "depth": 6.1,
+        "coordinates": {
+          "latitude": -1.5829067211615,
+          "longitude": 103.622012205008
+        }
+      },
+      {
+        "jetty_name": "JB 2",
+        "DWT_capacity": "900-18000",
+        "LoA_capacity": "50-160",
+        "flow_rate": "500.0/700",
+        "depth": 7.9,
+        "coordinates": {
+          "latitude": -1.58328482237038,
+          "longitude": 103.621672643659
+        }
+      }
+    ]
+  },
+  {
+    "port_name": "STS Teluk Semangka",
+    "slug": "sts-teluk-semangka",
+    "address": "Alamat kantor STS Teluk Semangka",
+    "contact_person": {
+      "name": "Admin Pelabuhan",
+      "phone": "+62-800-0000"
+    },
+    "navigation_coords": null,
+    "sop": "#",
+    "cargo_types": [
+      "WO, AVTUR, CRUDE"
+    ],
+    "wind_speed": "5-15 km/h",
+    "tide": "0.5-2.0 m",
+    "radio_channels": [
+      {
+        "channel": "VHF 16",
+        "frequency": "156.8 MHz"
+      }
+    ],
+    "weather": "Cerah, 30°C",
+    "operator": "PT Pelindo II",
+    "facilities": [
+      "Fuel Station",
+      "Warehouse"
+    ],
+    "jetties": [
+      {
+        "jetty_name": "TS 1",
+        "DWT_capacity": "900-18000",
+        "LoA_capacity": "50-160",
+        "flow_rate": "500.0/700",
+        "depth": 6.3,
+        "coordinates": {
+          "latitude": -5.63667887955243,
+          "longitude": 104.72943930225
+        }
+      }
+    ]
+  },
+  {
+    "port_name": "Pangkal Balam",
+    "slug": "pangkal-balam",
+    "address": "Alamat kantor Pangkal Balam",
+    "contact_person": {
+      "name": "Admin Pelabuhan",
+      "phone": "+62-800-0000"
+    },
+    "navigation_coords": null,
+    "sop": "#",
+    "cargo_types": [
+      "-"
+    ],
+    "wind_speed": "5-15 km/h",
+    "tide": "0.5-2.0 m",
+    "radio_channels": [
+      {
+        "channel": "VHF 16",
+        "frequency": "156.8 MHz"
+      }
+    ],
+    "weather": "Cerah, 30°C",
+    "operator": "PT Pelindo II",
+    "facilities": [
+      "Fuel Station",
+      "Warehouse"
+    ],
+    "jetties": [
+      {
+        "jetty_name": "PLB 1",
+        "DWT_capacity": "1000-17000",
+        "LoA_capacity": "50-66",
+        "flow_rate": "2900.0/-",
+        "depth": 7.2,
+        "coordinates": {
+          "latitude": -2.09608001005502,
+          "longitude": 106.167942215065
+        }
+      }
+    ]
+  },
+  {
+    "port_name": "Panjang",
+    "slug": "panjang",
+    "address": "Alamat kantor Panjang",
+    "contact_person": {
+      "name": "Admin Pelabuhan",
+      "phone": "+62-800-0000"
+    },
+    "navigation_coords": null,
+    "sop": "#",
+    "cargo_types": [
+      "-",
+      "WO"
+    ],
+    "wind_speed": "5-15 km/h",
+    "tide": "0.5-2.0 m",
+    "radio_channels": [
+      {
+        "channel": "VHF 16",
+        "frequency": "156.8 MHz"
+      }
+    ],
+    "weather": "Cerah, 30°C",
+    "operator": "PT Pelindo II",
+    "facilities": [
+      "Fuel Station",
+      "Warehouse"
+    ],
+    "jetties": [
+      {
+        "jetty_name": "PJG 1",
+        "DWT_capacity": "1000-18000",
+        "LoA_capacity": "50-160",
+        "flow_rate": "258.4/-",
+        "depth": 10.0,
+        "coordinates": {
+          "latitude": -5.46870335558614,
+          "longitude": 105.319336291986
+        }
+      },
+      {
+        "jetty_name": "PJG 2",
+        "DWT_capacity": "500-13000",
+        "LoA_capacity": "70-140",
+        "flow_rate": "250.0/700",
+        "depth": 5.5,
+        "coordinates": {
+          "latitude": -5.47266978928713,
+          "longitude": 105.317732500808
+        }
+      }
+    ]
+  },
+  {
+    "port_name": "Pulau Baai",
+    "slug": "pulau-baai",
+    "address": "Alamat kantor Pulau Baai",
+    "contact_person": {
+      "name": "Admin Pelabuhan",
+      "phone": "+62-800-0000"
+    },
+    "navigation_coords": null,
+    "sop": "#",
+    "cargo_types": [
+      "WO, AVTUR, CRUDE"
+    ],
+    "wind_speed": "5-15 km/h",
+    "tide": "0.5-2.0 m",
+    "radio_channels": [
+      {
+        "channel": "VHF 16",
+        "frequency": "156.8 MHz"
+      }
+    ],
+    "weather": "Cerah, 30°C",
+    "operator": "PT Pelindo II",
+    "facilities": [
+      "Fuel Station",
+      "Warehouse"
+    ],
+    "jetties": [
+      {
+        "jetty_name": "BKL-1",
+        "DWT_capacity": "900-18000",
+        "LoA_capacity": "71-160",
+        "flow_rate": "500.0/700",
+        "depth": 6.1,
+        "coordinates": {
+          "latitude": -3.9037287810466,
+          "longitude": 102.291937933943
+        }
+      }
+    ]
+  }
+]

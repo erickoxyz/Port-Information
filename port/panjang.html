@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Panjang</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/><style>#map{height:350px;}</style>
+</head>
+<body class="antialiased text-gray-800">
+<nav class="fixed top-0 w-full bg-white shadow z-50"><div class="container mx-auto px-6 py-4"><a href="../port-list.html" class="text-primary font-bold">← Daftar Pelabuhan</a></div></nav>
+<main class="container mx-auto py-12 space-y-6 mt-16" data-aos="fade-up">
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h1 class="text-2xl font-bold mb-2">Panjang</h1>
+    <p><strong>Alamat:</strong> Alamat kantor Panjang</p>
+    <p><strong>Contact:</strong> Admin Pelabuhan (+62-800-0000)</p>
+    <p><strong>Navigation:</strong> –</p>
+    <p><strong>SOP:</strong> <a href="#" class="text-accent">Lihat SOP</a></p>
+    <p><strong>Weather:</strong> Cerah, 30°C</p>
+    <p><strong>Wind:</strong> 5-15 km/h</p>
+    <p><strong>Tide:</strong> 0.5-2.0 m</p>
+    <p><strong>Operator:</strong> PT Pelindo II</p>
+    <p><strong>Facilities:</strong> Fuel Station, Warehouse</p>
+  </div>
+  <div id="map" class="rounded-lg shadow"></div>
+  <div class="bg-white p-6 rounded-lg shadow" data-aos="fade-up">
+    <h3 class="text-lg font-semibold mb-4">Detail Jetty</h3>
+    <div class="mb-4">
+      <h4 class="font-semibold">PJG 1</h4>
+      <ul class="list-disc list-inside text-sm ml-4">
+        <li>DWT/LoA: 1000-18000/50-160</li>
+        <li>Flow Rate: 258.4/-</li>
+        <li>Depth: 10.0 m</li>
+      </ul>
+    </div>
+    <div class="mb-4">
+      <h4 class="font-semibold">PJG 2</h4>
+      <ul class="list-disc list-inside text-sm ml-4">
+        <li>DWT/LoA: 500-13000/70-140</li>
+        <li>Flow Rate: 250.0/700</li>
+        <li>Depth: 5.5 m</li>
+      </ul>
+    </div>
+  </div>
+</main>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ once:true, duration:600 });
+  document.addEventListener('DOMContentLoaded',()=>{
+    const pData={"port_name": "Panjang", "slug": "panjang", "address": "Alamat kantor Panjang", "contact_person": {"name": "Admin Pelabuhan", "phone": "+62-800-0000"}, "navigation_coords": null, "sop": "#", "cargo_types": ["-", "WO"], "wind_speed": "5-15 km/h", "tide": "0.5-2.0 m", "radio_channels": [{"channel": "VHF 16", "frequency": "156.8 MHz"}], "weather": "Cerah, 30\u00b0C", "operator": "PT Pelindo II", "facilities": ["Fuel Station", "Warehouse"], "jetties": [{"jetty_name": "PJG 1", "DWT_capacity": "1000-18000", "LoA_capacity": "50-160", "flow_rate": "258.4/-", "depth": 10.0, "coordinates": {"latitude": -5.46870335558614, "longitude": 105.319336291986}}, {"jetty_name": "PJG 2", "DWT_capacity": "500-13000", "LoA_capacity": "70-140", "flow_rate": "250.0/700", "depth": 5.5, "coordinates": {"latitude": -5.47266978928713, "longitude": 105.317732500808}}]};
+    const coords = pData.jetties
+      .map(j=>[j.coordinates.latitude, j.coordinates.longitude])
+      .filter(c=>c[0]!=null && c[1]!=null);
+    const avg = coords.length
+      ? [ coords.reduce((s,a)=>s+a[0],0)/coords.length, coords.reduce((s,a)=>s+a[1],0)/coords.length ]
+      : [0,0];
+    const map=L.map('map').setView(avg, coords.length?9:2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18}).addTo(map);
+    coords.forEach(c=>L.marker(c).addTo(map));
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" x-data>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daftar Pelabuhan</title>
+
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#004A9F', accent: '#00A74D' }
+        }
+      }
+    }
+  </script>
+
+  <!-- Alpine.js for dropdown and mobile menu -->
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+</head>
+<body class="antialiased text-gray-800 bg-white">
+
+  <!-- Navbar -->
+  <nav x-data="{ menuOpen: false, portsOpen: false }" class="fixed top-0 w-full bg-white bg-opacity-90 backdrop-blur-sm shadow z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <!-- Logo & home -->
+      <a href="index.html" class="flex items-center">
+        <img src="images/Logo_PTK.png" alt="PTK Logo" class="w-40 h-auto mr-4"/>
+      </a>
+      <!-- Desktop nav -->
+      <ul class="hidden md:flex space-x-8 items-center">
+        <li><a href="index.html#hero" class="hover:text-primary">Home</a></li>
+        <li><a href="index.html#services" class="hover:text-primary">Services</a></li>
+        <!-- Ports dropdown -->
+        <li class="relative">
+          <button @click="portsOpen = !portsOpen" class="flex items-center space-x-1 hover:text-primary focus:outline-none">
+            <span>Ports</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <ul x-show="portsOpen" @click.outside="portsOpen = false" x-transition class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50">
+            <template x-for="p in ports" :key="p.slug">
+              <li>
+                <a :href="'port/' + p.slug + '.html'" class="block px-4 py-2 hover:bg-gray-100" x-text="p.port_name"></a>
+              </li>
+            </template>
+          </ul>
+        </li>
+        <li><a href="index.html#contact" class="hover:text-primary">Contact</a></li>
+      </ul>
+      <!-- Mobile menu button -->
+      <button @click="menuOpen = !menuOpen" class="md:hidden focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile nav -->
+    <div x-show="menuOpen" @click.outside="menuOpen = false" class="md:hidden bg-white/90">
+      <ul class="px-6 pt-2 pb-4 space-y-1">
+        <li><a href="index.html#hero" class="block py-2 hover:text-primary">Home</a></li>
+        <li><a href="index.html#services" class="block py-2 hover:text-primary">Services</a></li>
+        <li class="pt-2 border-t border-gray-200"><span class="block py-2 text-gray-600">Ports</span></li>
+        <template x-for="p in ports" :key="p.slug">
+          <li><a :href="'port/' + p.slug + '.html'" class="block py-2 pl-4 hover:text-primary" x-text="p.port_name"></a></li>
+        </template>
+        <li><a href="index.html#contact" class="block py-2 hover:text-primary">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="h-16"></div>
+
+  <!-- Daftar Pelabuhan -->
+  <main class="container mx-auto py-16 px-6">
+    <h2 class="text-3xl font-bold text-center mb-8" data-aos="fade-up">Pilih Port</h2>
+    <div id="port-list" class="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-100 text-center py-6">
+    <p class="text-gray-600">&copy; 2025 Sumbagsel Port Dashboard</p>
+  </footer>
+
+  <!-- Inline data: embed JSON langsung -->
+  <script id="ports-data" type="application/json">
+[
+  {"port_name":"Plaju - Sei Gerong","slug":"plaju-sei-gerong","address":"Jl. Beringin No.1 Komperta, Plaju"},
+  {"port_name":"STS Muntok","slug":"sts-muntok","address":"Alamat kantor STS Muntok"},
+  {"port_name":"STS Teluk Semangka","slug":"sts-teluk-semangka","address":"Alamat kantor STS Teluk Semangka"},
+  {"port_name":"Pangkal Balam","slug":"pangkal-balam","address":"Alamat kantor Pangkal Balam"},
+  {"port_name":"Jambi","slug":"jambi","address":"Alamat kantor Jambi"},
+  {"port_name":"Panjang","slug":"panjang","address":"Alamat kantor Panjang"},
+  {"port_name":"Pulau Baai","slug":"pulau-baai","address":"Alamat kantor Pulau Baai"}
+]
+  </script>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ once: true, duration: 600 });
+
+    const ports = JSON.parse(document.getElementById('ports-data').textContent);
+    const container = document.getElementById('port-list');
+
+    container.innerHTML = '';
+    ports.forEach((p, idx) => {
+      const card = document.createElement('a');
+      card.href = 'port/' + p.slug + '.html';
+      card.className = 'group flex items-center bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition';
+      card.setAttribute('data-aos','zoom-in');
+      card.setAttribute('data-aos-delay', idx * 100);
+
+      card.innerHTML = `
+        <img src="images/${p.slug}.jpg" alt="${p.port_name}" class="w-32 h-24 object-cover flex-shrink-0"/>
+        <div class="p-4 flex-1">
+          <h3 class="text-lg font-semibold">${p.port_name}</h3>
+          <p class="text-gray-600 text-sm">${p.address}</p>
+        </div>`;
+
+      container.appendChild(card);
+    });
+  </script>
+</body>
+</html>

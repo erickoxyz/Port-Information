@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" x-data="portPage()" x-cloak class="antialiased">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plaju – Sei Gerong</title>
+
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#004A9F', accent: '#00A74D' }
+        }
+      }
+    };
+  </script>
+
+  <!-- Alpine.js -->
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+  <style>
+    [x-cloak] { display: none !important; }
+    /* ensure map stays behind modals */
+    #map {
+      background: white;
+      position: relative;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow fixed w-full z-50">
+    <div class="container mx-auto px-6 py-4">
+      <a href="../port-list.html" class="text-xl font-bold text-primary hover:underline">
+        ← Kembali ke Daftar Pelabuhan
+      </a>
+    </div>
+  </nav>
+  <div class="h-16"></div>
+
+  <!-- Hero -->
+  <section class="relative">
+    <img src="../images/plaju-sei-gerong.jpg"
+         alt="Plaju – Sei Gerong"
+         class="object-cover w-full h-64"/>
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="absolute inset-0 flex flex-col justify-center items-center text-white text-center px-4">
+      <h1 class="text-3xl md:text-5xl font-extrabold" data-aos="fade-down">Plaju – Sei Gerong</h1>
+      <p class="mt-2 text-sm md:text-base" data-aos="fade-up" data-aos-delay="200">
+        Alur Sei Gerong, Palembang
+      </p>
+    </div>
+  </section>
+
+  <!-- Tabs -->
+  <div class="container mx-auto px-6 py-8" data-aos="fade-up">
+    <ul class="flex space-x-8 border-b border-gray-200 mb-8 text-xl font-semibold">
+      <template x-for="t in ['info','facilities','jetty','osr']" :key="t">
+        <li>
+          <button @click="tab = t"
+                  class="pb-3 cursor-pointer transition-colors duration-200 focus:outline-none"
+                  :class="tab===t
+                    ? 'text-primary border-b-4 border-primary'
+                    : 'text-gray-500 hover:text-primary'">
+            <span x-text="{
+              info: 'Info Umum',
+              facilities: 'Fasilitas',
+              jetty: 'Jetty',
+              osr: 'Oil Spill Response'
+            }[t]"></span>
+          </button>
+        </li>
+      </template>
+    </ul>
+
+    <!-- Info Umum -->
+    <div x-show="tab==='info'" x-transition>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        <!-- Lokasi Kantor -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg text-center hover:shadow-xl transition" data-aos="fade-up">
+          <!-- … existing Lokasi Kantor content … -->
+        </div>
+        <!-- Contact Person -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg text-center hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="100">
+          <!-- … existing Contact Person content … -->
+        </div>
+        <!-- Titik Navigasi -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg text-center hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="200">
+          <!-- … existing Titik Navigasi content … -->
+        </div>
+        <!-- Standar Operasional -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg text-center hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="300">
+          <!-- … existing Standar Operasional content … -->
+        </div>
+        <!-- Pejabat Pelabuhan -->
+        <div
+          class="bg-white p-6 rounded-2xl shadow-lg text-center hover:shadow-xl transition cursor-pointer"
+          data-aos="fade-up" data-aos-delay="400"
+          @click="pejabatModalOpen = true"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="w-12 h-12 text-primary mx-auto mb-3"
+               fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 11c0-3.866 3.134-7 7-7s7 3.134 7 7-3.134 7-7 7-7-3.134-7-7zm-8 0c0-2.761 2.239-5 5-5s5 2.239 5 5-2.239 5-5 5-5-2.239-5-5z"/>
+          </svg>
+          <h4 class="text-2xl font-semibold mb-2">Pejabat Pelabuhan</h4>
+          <p class="text-gray-600 text-base leading-relaxed">
+            Klik untuk melihat detail
+          </p>
+        </div>
+      </div>
+
+      <!-- Pejabat Pelabuhan Modal (teleported, no gray backdrop) -->
+      <div x-teleport="body">
+        <div
+          x-show="pejabatModalOpen"
+          x-transition.opacity
+          class="fixed inset-0 z-[1000] flex items-center justify-center"
+        >
+          <div
+            @click.away="pejabatModalOpen = false"
+            class="bg-white rounded-2xl overflow-auto max-w-2xl w-full max-h-[90vh] p-6 shadow-xl"
+          >
+            <h3 class="text-2xl font-semibold mb-4">Pejabat Pelabuhan</h3>
+            <div class="space-y-4 text-left text-gray-700 text-sm leading-relaxed">
+              <div>
+                <strong>KSOP / KUPP:</strong> KSOP Kelas I PALEMBANG<br>
+                <strong>Alamat:</strong> Boom Baru, Jl. Mayor Memet Sastra Wirya No.147, Lawang Kidul, Kec. Ilir Tim. II, Kota Palembang, Sumatera Selatan 30115<br>
+                <strong>Telephone:</strong> 711713551
+              </div>
+              <div>
+                <strong>Bea Cukai:</strong> KPPBC Boom Baru PALEMBANG<br>
+                <strong>Alamat:</strong> Jl. Jend. Basuki Rachmat, 20 Ilir D II, Kec. Kemuning, Kota Palembang, Sumatera Selatan 30128<br>
+                <strong>Telephone:</strong> 0711361816 / 362781
+              </div>
+              <div>
+                <strong>Imigrasi:</strong> Kantor Imigrasi Kelas I TPI PALEMBANG<br>
+                <strong>Alamat:</strong> Jl. Pangeran Ratu No.1, Deapanulu, Kec. Seberang Ulu I, Kota Palembang, Sumatera Selatan 30252<br>
+                <strong>Telephone:</strong> 62711518309
+              </div>
+              <div>
+                <strong>Kesehatan Pelabuhan:</strong> Kantor Kesehatan Pelabuhan Kelas II PALEMBANG<br>
+                <strong>Alamat:</strong> Jalan Letjen Harun Sohar – Tjg Api Api Lr. Bambu Kuning No.22, Kebun Bunga, Kec. Sukarami, Kota Palembang, Sumatera Selatan 30761<br>
+                <strong>Telephone:</strong> 0711420103
+              </div>
+              <div>
+                <strong>Polisi Perairan:</strong> DITPOLAIRUD POLDA SUMATERA SELATAN<br>
+                <strong>Alamat:</strong> Jl. May Zen No.Kel, Sei Lais, Kec. Kalidoni, Kota Palembang, Sumatera Selatan 30119<br>
+                <strong>Telephone:</strong> 0711714286
+              </div>
+              <div>
+                <strong>Badan Usaha Pelabuhan:</strong> PT. PETEKA KARYA SAMUDERA (PKS)<br>
+                <strong>Alamat:</strong> Jl. Beringin No.76 Komperta Plaju, Kota Palembang<br>
+                <strong>Telephone:</strong> (0711) 710611 / 5740884
+              </div>
+            </div>
+            <button
+              @click="pejabatModalOpen = false"
+              class="mt-6 bg-primary text-white px-4 py-2 rounded hover:bg-blue-800"
+            >
+              Tutup
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div id="map" class="w-full h-96 rounded-lg shadow-lg mb-6"></div>
+
+      <!-- BMKG Data -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        <!-- … existing BMKG cards … -->
+      </div>
+    </div>
+
+    <!-- Facilities, Jetty & OSR sections unchanged… -->
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    AOS.init({ once:true, duration:600 });
+
+    function portPage(){
+      return {
+        tab: 'info',
+        modalOpen: false,
+        pejabatModalOpen: false,
+        modalImage: '',
+        modalTitle: '',
+        modalDesc: '',
+        osrData: [ /* … */ ],
+        facilities: [ /* … */ ],
+        jetties: [ /* … */ ],
+        toggleJetty(j,i){
+          this.jetties.forEach((x,idx)=> x.open = idx===i && !x.open);
+          if(this.jetties[i].open && window.map){
+            window.map.flyTo(j.coords,17,{duration:1.2});
+            window.jettyMarkers[i].openPopup();
+          }
+        },
+        openModal(f){
+          this.modalImage = f.img;
+          this.modalTitle = f.title.replace(/<br>/g,' ');
+          this.modalDesc  = f.desc;
+          this.modalOpen  = true;
+        }
+      }
+    }
+
+    document.addEventListener('alpine:init',()=>{
+      window.map = L.map('map').setView([-2.987,104.838],15);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18}).addTo(window.map);
+      setTimeout(()=>{
+        window.jettyMarkers = [];
+        portPage().jetties.forEach((j,i)=>{
+          const m = L.marker(j.coords).addTo(window.map)
+                   .bindPopup(`<strong>${j.name}</strong><br>Koordinat: ${j.coords.join(', ')}`);
+          window.jettyMarkers.push(m);
+        });
+        window.map.invalidateSize();
+      },200);
+    });
+
+    async function loadBMKG(){
+      try{
+        const res = await fetch('https://peta-maritim.bmkg.go.id/public_api/pelabuhan/0380_Tanjung%20Api%20Api.json');
+        if(!res.ok) throw new Error(res.status);
+        const { data } = await res.json(), d = data[0];
+        document.getElementById('weather-desc').textContent   = d.weather;
+        document.getElementById('wind-speed').textContent    = `${d.wind_speed_min}–${d.wind_speed_max} kt (${d.wind_from}→${d.wind_to})`;
+        document.getElementById('current-speed').textContent = `${d.current_speed_min}–${d.current_speed_max} m/s (${d.current_from}→${d.current_to})`;
+      } catch(e){
+        console.error('BMKG error', e);
+      }
+    }
+    loadBMKG();
+  </script>
+</body>
+</html>
+
+
+
